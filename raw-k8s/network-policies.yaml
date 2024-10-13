@@ -1,0 +1,45 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: a-deny-other-namespaces
+  namespace: a
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+        - ipBlock:
+            cidr: 0.0.0.0/0
+  egress:
+    - to:
+        - podSelector: {}
+        - ipBlock:
+            cidr: 0.0.0.0/0
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: b-deny-other-namespaces
+  namespace: b
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: ingress-nginx
+        - ipBlock:
+            cidr: 0.0.0.0/0
+  egress:
+    - to:
+        - podSelector: {}
+        - ipBlock:
+            cidr: 0.0.0.0/0

@@ -1,0 +1,53 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: a
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - production-ready.com
+    secretName: production-ready-cert-a
+  rules:
+  - host: production-ready.com
+    http:
+      paths:
+      - path: /service-A
+        pathType: Prefix
+        backend:
+          service:
+            name: app-service
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: b
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - production-ready.com
+    secretName: production-ready-cert-b
+  rules:
+  - host: production-ready.com
+    http:
+      paths:
+      - path: /service-B
+        pathType: Prefix
+        backend:
+          service:
+            name: app-service
+            port:
+              number: 80
