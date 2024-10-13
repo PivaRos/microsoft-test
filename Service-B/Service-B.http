@@ -1,0 +1,4 @@
+@Service_B_HostAddress = http://localhost:5068
+
+GET {{Service_B_HostAddress}}/
+###

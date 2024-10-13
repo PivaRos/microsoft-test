@@ -1,0 +1,5 @@
+bitcoin:
+  base_url: "https://api.coingecko.com/api/v3/simple/price"
+  currency: "usd"
+  fetch_interval_minutes: 1
+  max_history: 10
