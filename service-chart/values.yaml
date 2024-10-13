@@ -1,0 +1,57 @@
+
+image:
+  repository: pivaros/service-a # pivaros/service-b and pivaros/service-a
+  tag: "latest"
+
+ingress:
+  enabled: true
+  host: production-ready.com
+  route: /service-A
+
+replicas: 1
+
+service: 
+  port: 80
+  initialDelaySeconds: 5
+
+certManager:
+  clusterIssuer: letsencrypt-prod
+  email: danielgavgurbin@gmail.com
+
+serviceAccount:
+  name: admin-sa
+
+role:
+  adminRole:
+    name: admin-role
+    permissions: ["*"]
+  viewRole:
+    name: view-role
+    permissions: ["get", "list", "watch"]
+
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    cpu: 50
+    memory: 75
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Percent
+          value: 50
+          periodSeconds: 60
+        - type: Pods
+          value: 4
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Percent
+          value: 2
+          periodSeconds: 60
+        - type: Pods
+          value: 2
+          periodSeconds: 60

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: service-chart
+description: A Helm chart for deploying microsoft-test service
+version: 0.1.0

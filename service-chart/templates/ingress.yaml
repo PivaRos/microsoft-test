@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress
+  namespace: {{ .Release.Name }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: {{ .Values.certManager.clusterIssuer }}
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: "tls-secret-{{ randAlphaNum 16 | lower }}"
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: {{ .Values.ingress.route }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Release.Name }}-app-service
+            port:
+              number: {{ .Values.service.port }}
+{{- end }}
