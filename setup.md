@@ -22,6 +22,7 @@ minikube start
 
 ```go
 127.0.0.1 production-ready.com
+127.0.0.1 logs.production-ready.com
 ```
 
 - And forward all traffic to minikube
@@ -71,4 +72,5 @@ minikube start
 
 ```go
 <minikube-ip> production-ready.com
+<minikube-ip> logs.production-ready.com
 ```

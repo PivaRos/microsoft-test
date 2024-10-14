@@ -2,7 +2,9 @@
 
 <span style="font-size:12px;font-weight:600;">Made by Daniel Gurbin</span>
 
-- Assuming you have minikube and helm installed
+- NOTE: Assuming you have minikube and helm installed
+
+- NOTE: This app does not do certificate challenges since i dont have real domain and cant verify with challenge but it does have the infrastructure for it (:
 
 ### 1. Before running helm install run the following commands to :
 
@@ -18,7 +20,15 @@
     helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --set installCRDs=true
 ```
 
-### 2. Edit the values file
+### 2. Apply EFK logging
+
+```bash
+kubectl apply -f ./efk/elasticsearch
+kubectl apply -f ./efk/kibana
+kubectl apply -f ./efk/fluentd
+```
+
+### 3. Edit the values file
 
 change the variables as you please
 
@@ -38,7 +48,7 @@ ingress:
 kubectl apply -f ./service-chart/cluster-role.yaml
 ```
 
-### 3. Run helm install
+### 5. Run helm install
 
 ```bash
 cd service-chart
