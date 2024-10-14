@@ -22,6 +22,8 @@
 
 ### 2. Apply EFK logging
 
+- Kibana dashboard will be available at logs.production-ready.com for logs inside the cluster
+
 ```bash
 kubectl apply -f ./efk/elasticsearch
 kubectl apply -f ./efk/kibana
@@ -48,7 +50,7 @@ ingress:
 kubectl apply -f ./service-chart/cluster-role.yaml
 ```
 
-### 5. Run helm install
+### 5. Run helm install for each service
 
 ```bash
 cd service-chart
