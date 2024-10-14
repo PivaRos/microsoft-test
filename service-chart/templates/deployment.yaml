@@ -32,3 +32,10 @@ spec:
             port: {{ .Values.service.port }}
           initialDelaySeconds:  {{ .Values.service.initialDelaySeconds }}
           periodSeconds: 10
+        resources:
+          requests:
+            memory: "128Mi" #dotnet so more memory by default
+            cpu: "200m"
+          limits:
+            memory: "258Mi" 
+            cpu: "500m"

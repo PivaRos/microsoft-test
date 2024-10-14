@@ -1,12 +1,12 @@
 
 image:
-  repository: pivaros/service-a # pivaros/service-b and pivaros/service-a
+  repository: pivaros/service-b # pivaros/service-b and pivaros/service-a
   tag: "latest"
 
 ingress:
   enabled: true
   host: production-ready.com
-  route: /service-A
+  route: /service-B
 
 replicas: 1
 
