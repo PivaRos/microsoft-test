@@ -8,7 +8,6 @@ ingress:
   host: production-ready.com
   route: /service-B
 
-replicas: 1
 
 service: 
   port: 80
